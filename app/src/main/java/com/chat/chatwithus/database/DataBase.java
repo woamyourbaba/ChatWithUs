@@ -8,7 +8,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     private Context mcontext;
 
-    public static final String CREATE_INFO = "create table Info ("+" ip text primary key autoincrement,"+"name text,"+"msg,text)";
+    public static final String CREATE_INFO = "create table Info ("+" ip text,"+"name text,"+"msg,text)";
     public DataBase(Context context,String name,SQLiteDatabase.CursorFactory factory,int version){
           super(context,name,factory,version);
           mcontext=context;

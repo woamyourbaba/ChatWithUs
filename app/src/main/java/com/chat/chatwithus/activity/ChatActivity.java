@@ -61,6 +61,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         db=new DataBase(this,"Message.db",null,1);
+        db.getWritableDatabase();
         setContentView(R.layout.activity_chat);
         Intent intent1=getIntent();
         int j=intent1.getIntExtra("image",0);
@@ -146,7 +147,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
 
         // TODO Auto-generated method stub
         if(v == chat_send){
-            db.getWritableDatabase();
+            //db.getWritableDatabase();
             sendAndAddMessage();
         }else if(v == chat_quit){
             SQLiteDatabase dbhelp=db.getWritableDatabase();
@@ -164,7 +165,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
 
                 }
             }
-
+            cursor.close();
             finish();
         }
     }

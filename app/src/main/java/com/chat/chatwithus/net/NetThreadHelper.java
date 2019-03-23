@@ -383,13 +383,13 @@ public class NetThreadHelper implements Runnable{
             if(userIp.equals(UserListActivity.hostIp))
                 user.setGroupName("yourself");
             else
-                user.setGroupName("others");
+                user.setGroupName("AllPeople");
         }else if (userInfo.length == 1){
             user.setUserName(userInfo[0]);
             if(userIp.equals(UserListActivity.hostIp))
                 user.setGroupName("yourself");
             else
-                user.setGroupName("others");
+                user.setGroupName("AllPeople");
         }else{
             user.setUserName(userInfo[0]);
             if(userIp.equals(UserListActivity.hostIp))
