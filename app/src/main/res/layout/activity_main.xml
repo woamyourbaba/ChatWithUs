@@ -41,12 +41,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/headimage_background">
+
         <EditText
             android:id="@+id/ed"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            />
+            android:textColorLink="@color/colorAccent" />
 
         <Button
             android:id="@+id/btnsure"
