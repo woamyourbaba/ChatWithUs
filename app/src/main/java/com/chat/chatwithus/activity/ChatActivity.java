@@ -1,7 +1,10 @@
 package com.chat.chatwithus.activity;
 
 
+import android.content.ContentValues;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +33,7 @@ import com.chat.chatwithus.interfaces.ReceiveMsgListener;
 import com.chat.chatwithus.utils.IpMessageConst;
 import com.chat.chatwithus.utils.IpMessageProtocol;
 import com.chat.chatwithus.utils.UsedConst;
+import com.chat.chatwithus.database.DataBase;
 
 
 public class ChatActivity extends BaseActivity implements OnClickListener,ReceiveMsgListener {
@@ -48,12 +52,15 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
     private ChatListAdapter adapter;
     private String selfName;
     private String selfGroup;
+    private DataBase db;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        db=new DataBase(this,"Message.db",null,1);
         setContentView(R.layout.activity_chat);
         Intent intent1=getIntent();
         int j=intent1.getIntExtra("image",0);
@@ -136,10 +143,19 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
 
     @Override
     public void onClick(View v) {
+
         // TODO Auto-generated method stub
         if(v == chat_send){
+            db.getWritableDatabase();
             sendAndAddMessage();
         }else if(v == chat_quit){
+            SQLiteDatabase dbhelp=db.getWritableDatabase();
+            Cursor cursor=dbhelp.query("Info",null,null,null,null,null,null);
+            ContentValues cv=new ContentValues();
+            cv.put("ip",receiverIp);
+            cv.put("name",receiverName);
+            cv.put("msg",msgList.toString());
+            dbhelp.insert("Info",null,cv);
             finish();
         }
     }
