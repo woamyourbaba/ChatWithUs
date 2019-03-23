@@ -44,7 +44,7 @@ public class UserListActivity extends BaseActivity implements OnClickListener {
     private Button refreshButton;
     private TextView ipTextView;
     Context context;
-    final static String TAG = "robin";
+
 
 
     @Override

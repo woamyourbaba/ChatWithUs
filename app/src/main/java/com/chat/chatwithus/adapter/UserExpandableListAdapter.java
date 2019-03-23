@@ -70,7 +70,8 @@ public class UserExpandableListAdapter extends BaseExpandableListAdapter {
         childTv.setText(user.getUserName());	//用户名显示
         childIp.setText(user.getIp());	//IP显示
         Random random=new Random();
-        childImg.setImageDrawable(res.getDrawable(imgIds[random.nextInt(imgIds.length)]));
+        final  int i=random.nextInt(imgIds.length);
+        childImg.setImageDrawable(res.getDrawable(imgIds[i]));
 
 
         if(user.getMsgCount() == 0){	//若没有未接收的消息，则不显示
@@ -90,6 +91,7 @@ public class UserExpandableListAdapter extends BaseExpandableListAdapter {
                 intent.putExtra("receiverName", user.getUserName());
                 intent.putExtra("receiverIp", user.getIp());
                 intent.putExtra("receiverGroup", user.getGroupName());
+                intent.putExtra("image",i);
 
                 childInfoNo.setVisibility(View.GONE);
                 user.setMsgCount(0);

@@ -55,9 +55,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
+        Intent intent1=getIntent();
+        int j=intent1.getIntExtra("image",0);
         findViews();
         int [] imgIds={R.drawable.user1,R.drawable.user2,R.drawable.user3,R.drawable.user4,R.drawable.user5};
+        chat_item_head.setImageResource(imgIds[j]);
         msgList = new ArrayList<ChatMessage>();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
