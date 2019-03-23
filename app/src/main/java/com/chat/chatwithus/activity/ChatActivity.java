@@ -151,11 +151,20 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
         }else if(v == chat_quit){
             SQLiteDatabase dbhelp=db.getWritableDatabase();
             Cursor cursor=dbhelp.query("Info",null,null,null,null,null,null);
-            ContentValues cv=new ContentValues();
-            cv.put("ip",receiverIp);
-            cv.put("name",receiverName);
-            cv.put("msg",msgList.toString());
-            dbhelp.insert("Info",null,cv);
+            if(cursor.moveToFirst()){
+                String ip=cursor.getString(cursor.getColumnIndex("ip"));
+                if(ip!=receiverIp)
+                {
+                    ContentValues cv=new ContentValues();
+                    cv.put("ip",receiverIp);
+                    cv.put("name",receiverName);
+                    cv.put("msg",msgList.toString());
+                    dbhelp.insert("Info",null,cv);
+                }else {
+
+                }
+            }
+
             finish();
         }
     }
