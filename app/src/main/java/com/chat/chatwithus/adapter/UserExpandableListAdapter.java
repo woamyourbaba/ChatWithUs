@@ -3,6 +3,7 @@ package com.chat.chatwithus.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chat.chatwithus.activity.UserListActivity;
+import com.chat.chatwithus.database.DataBase;
 import com.chat.chatwithus.R;
 import com.chat.chatwithus.activity.ChatActivity;
 import com.chat.chatwithus.data.User;
@@ -26,6 +29,7 @@ public class UserExpandableListAdapter extends BaseExpandableListAdapter {
     protected Resources res;
     private LayoutInflater mChildInflater;	//用于加载分组的布局xml
     private LayoutInflater mGroupInflater;	//用于加载对应分组用户的布局xml
+    private DataBase dbhelp;
     List<String> groups = new ArrayList<String>();
     List<List<User>> children = new ArrayList<List<User>>();
 
@@ -36,6 +40,7 @@ public class UserExpandableListAdapter extends BaseExpandableListAdapter {
         this.children = children;
         context = c;
         res = c.getResources();
+        
     }
 
     @Override
@@ -72,7 +77,6 @@ public class UserExpandableListAdapter extends BaseExpandableListAdapter {
         Random random=new Random();
         final  int i=random.nextInt(imgIds.length);
         childImg.setImageDrawable(res.getDrawable(imgIds[i]));
-
 
         if(user.getMsgCount() == 0){	//若没有未接收的消息，则不显示
             childInfoNo.setVisibility(View.GONE);

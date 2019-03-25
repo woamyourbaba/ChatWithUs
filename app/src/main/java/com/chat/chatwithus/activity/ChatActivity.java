@@ -44,6 +44,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
     private EditText chat_input;
     private Button chat_send;
     private ImageView chat_item_head;
+    private Button chat_re;
 
     private List<ChatMessage> msgList;
     private String receiverName;
@@ -56,11 +57,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         db=new DataBase(this,"Message.db",null,1);
+
         db.getWritableDatabase();
         setContentView(R.layout.activity_chat);
         Intent intent1=getIntent();
@@ -107,7 +110,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
         chat_input = (EditText) findViewById(R.id.chat_input);
         chat_send = (Button) findViewById(R.id.chat_send);
         chat_item_head=(ImageView)findViewById(R.id.chat_item_head);
-
+      //  chat_re=(Button)findViewById(R.id.chat_record);
     }
 
     @Override
@@ -152,22 +155,40 @@ public class ChatActivity extends BaseActivity implements OnClickListener,Receiv
         }else if(v == chat_quit){
             SQLiteDatabase dbhelp=db.getWritableDatabase();
             Cursor cursor=dbhelp.query("Info",null,null,null,null,null,null);
+            ContentValues cv = new ContentValues();
             if(cursor.moveToFirst()){
-                String ip=cursor.getString(cursor.getColumnIndex("ip"));
-                if(ip!=receiverIp)
-                {
-                    ContentValues cv=new ContentValues();
-                    cv.put("ip",receiverIp);
-                    cv.put("name",receiverName);
-                    cv.put("msg",msgList.toString());
-                    dbhelp.insert("Info",null,cv);
-                }else {
-
-                }
+                do {
+                    String ip = cursor.getString(cursor.getColumnIndex("ip"));
+                    //String ip=cursor.getString(cursor.getColumnIndex("ip"));
+                    if (ip == receiverIp) {
+                      cv.put("msg",msgList.toString());
+                      dbhelp.update("Info",cv,"ip = ?",new String[]{receiverIp});
+                    } else {
+                        cv.put("ip", receiverIp);
+                        cv.put("name", receiverName);
+                        cv.put("msg", msgList.toString());
+                        dbhelp.insert("Info", null, cv);
+                    }
+                }while (cursor.moveToNext());
             }
             cursor.close();
             finish();
-        }
+        }/*else if(v ==chat_re){
+            SQLiteDatabase dbhelp=db.getWritableDatabase();
+            Cursor cursor=dbhelp.query("Info",null,null,null,null,null,null);
+            ContentValues cv = new ContentValues();
+            if(cursor.moveToFirst()){
+                do {
+                    String ip = cursor.getString(cursor.getColumnIndex("ip"));
+                    //String ip=cursor.getString(cursor.getColumnIndex("ip"));
+                    if (ip == receiverIp) {
+                       String mesg=dbhelp.rawQuery("select msg from Info where ip =?",new String[]{receiverIp}).toString();
+
+                    }
+                }while (cursor.moveToNext());
+            }
+            cursor.close();
+        }*/
     }
 
     /**

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import com.chat.chatwithus.data.User;
+import com.chat.chatwithus.database.DataBase;
 import com.chat.chatwithus.net.NetThreadHelper;
 import com.chat.chatwithus.utils.IpMessageConst;
 import java.util.Iterator;
@@ -43,6 +44,7 @@ public class UserListActivity extends BaseActivity implements OnClickListener {
     private TextView totalUser;
     private Button refreshButton;
     private TextView ipTextView;
+
     Context context;
 
 

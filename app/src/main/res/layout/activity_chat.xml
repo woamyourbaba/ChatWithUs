@@ -84,13 +84,14 @@
             android:background="@color/gray_blue"
             android:gravity="center_vertical"
             >
-            <EditText android:id="@+id/chat_input"
-                android:layout_width="fill_parent"
+
+            <EditText
+                android:id="@+id/chat_input"
+                android:layout_width="246dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dip"
-                android:singleLine="true"
-                />
+                android:layout_weight="1"
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/chat_send"
@@ -104,6 +105,18 @@
                 android:text="send"
                 android:textColor="@color/white"
                 android:textSize="18dip" />
+            <!--Button
+                android:id="@+id/chat_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="4dip"
+                android:layout_weight="0"
+                android:background="@drawable/button"
+                android:onClick="onClick"
+                android:text="record"
+                android:textColor="@color/white"
+                android:textSize="18dip" /-->
 
         </LinearLayout>
     </LinearLayout>
